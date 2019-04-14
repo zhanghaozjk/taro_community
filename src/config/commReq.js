@@ -1,17 +1,15 @@
-import Taro from "@tarojs/taro";
+import Taro from '@tarojs/taro'
 
-import {BASE_URL} from '../config/commReq'
+export const BASE_URL = 'http://192.168.0.103:8080/';
 
-// 封装一次request，目的是为了更新过期的token
-export default function communityRequest(param) {
+export function commReq(param) {
   const defaultUrl = BASE_URL;
   let authorization = localStorage.getItem("token");
   if (authorization != null) {
     //param....
     const defaultHeader = {
-        'content-type': 'application/json',
+      'content-type': 'application/json',
     };
-
     param.header = {
       ...defaultHeader,
       ...param.header,
@@ -38,7 +36,7 @@ export default function communityRequest(param) {
           // 更新一次token之后再次发起请求
           localStorage.setItem("token", res.data.data.token);
           // debugger
-          return communityRequest(param);
+          return commReq(param);
         } else {
           return res;
         }
