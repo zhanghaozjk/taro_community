@@ -1,8 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import {AtButton, AtForm, AtIcon, AtInput, AtToast} from "taro-ui";
-import {BASE_URL} from "../../config/commReq";
 
+import {BASE_URL} from "../../config/commReq";
 import './regist.scss'
 
 export default class regist extends Component {
@@ -12,7 +12,7 @@ export default class regist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: sessionStorage.getItem("username") == null ? '': sessionStorage.getItem("username"),
       password: '',
       passwordVisible: 'password',
       verifyCode: '',
@@ -75,6 +75,7 @@ export default class regist extends Component {
             onChange={this.handleChangeEmail.bind(this)}
             className='rg-input'
             onBlur={this.checkEmailExist}
+            clear
           />
           <AtInput
             name='password'
@@ -83,6 +84,7 @@ export default class regist extends Component {
             placeholder='请输入密码'
             value={this.state.password}
             onChange={this.handleChangePassword.bind(this)}
+            clear
           >
             <View><AtIcon value='eye' onClick={this.handleChangeVisible} /></View>
           </AtInput>
@@ -163,7 +165,8 @@ export default class regist extends Component {
   handleChangeEmail(value) {
     this.setState({
       email: value
-    })
+    });
+    sessionStorage.setItem("email", value);
   }
 
   handleChangePassword(value) {

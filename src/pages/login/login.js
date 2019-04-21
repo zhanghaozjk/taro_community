@@ -9,7 +9,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      username: sessionStorage.getItem("username") == null ? "": sessionStorage.getItem("username"),
       password: '',
       atToastShow: false,
       atToastText: '',
@@ -84,7 +84,9 @@ export default class Login extends Component {
             placeholder='请输入用户名'
             value={this.state.username}
             onChange={this.handleChangeUsername.bind(this)}
+            onBlur={this.props.changeUsername}
             className='lg-input'
+            clear
           />
           <AtInput
             name='password'
@@ -93,6 +95,7 @@ export default class Login extends Component {
             placeholder='请输入密码'
             value={this.state.password}
             onChange={this.handleChangePassword.bind(this)}
+            clear
           />
           <AtToast
             isOpened={this.state.atToastShow}
@@ -114,6 +117,7 @@ export default class Login extends Component {
     this.setState({
       username: value
     });
+    sessionStorage.setItem("username", value);
     return value
   }
 

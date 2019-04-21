@@ -8,7 +8,7 @@ export default class Index extends Component {
   };
 
   componentDidMount(): void {
-    if (localStorage.getItem('token') != null) {
+    if (localStorage.getItem('token') == null) {
       Taro.redirectTo({url: "/pages/login/login"})
     } else {
       Taro.redirectTo({url: "/pages/post/post"})
@@ -17,8 +17,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='index'>
-      </View>
+      <View />
     )
   }
 }

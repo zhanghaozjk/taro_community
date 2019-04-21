@@ -30,7 +30,7 @@ export function commReq(param) {
     };
 
     return Taro.request(param).then(res=>{
-      console.log(res);
+      // console.log(res);
       if (res.data.code === 401) {
         if (res.data.msg === "need re-auth" && res.data.data.token != null){
           // 更新一次token之后再次发起请求

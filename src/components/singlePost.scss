@@ -1,0 +1,72 @@
+.everyCard {
+  border: 1px solid #ccc;
+  width: 90%;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px hsla(0, 0%, 39%, .3);
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  font-size: 30px;
+}
+.everyCard .topLine{
+  display:flex;
+  flex-flow:row;
+}
+//.everyCard .topLine .avatar{
+//  width: 80px;
+//  height: 80px;
+//  border-radius: 50%;
+//}
+.everyCard .topLine .rightPart{
+  //padding: 20px 10px 0 10px;
+  flex: 1;
+  color: #333;
+  text-align: left;
+}
+.everyCard .topLine .rightPart .name{
+  padding: 50px 10px 0 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  line-height: 10px;
+  color: black;
+  font-size: 35px;
+}
+.everyCard .topLine .rightPart .date_location {
+  padding-left: 10px;
+  padding-bottom: 20px;
+  //margin-top: -20px;
+  color: #7e7e7e;
+  font-size: 25px;
+}
+
+//.everyCard .topLine .rightPart .image{
+//  width: 16px;height: 16px;
+//  position: relative;
+//  top: 2px;
+//  left: 2px;
+//}
+.everyCard .content{
+  padding: 10px 10px;
+  margin-top: -10px;
+  text-align: left;
+}
+.bottomLine{
+  display:flex;
+  flex-flow:row;
+  border-top: 1px solid #ccc;
+  line-height: 60px;
+}
+.bottomLine .div{
+  flex:1;
+  height: 60px;
+
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+.bottomLine .div:last-child{
+  border-right: 0;
+}
+.bottomLine view a{
+  text-decoration: none;
+  color: #333;
+}
