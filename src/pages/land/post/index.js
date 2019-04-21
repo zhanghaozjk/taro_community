@@ -1,11 +1,13 @@
 import Taro, {Component, Config} from '@tarojs/taro'
 import {View} from '@tarojs/components'
-
-import {commReq} from "../../config/commReq";
-import SinglePost from "../../components/SinglePost";
 import {AtActionSheet, AtActionSheetItem, AtNavBar, AtTabBar} from "taro-ui";
 
+import {commReq} from "../../../config/commReq";
+import SinglePost from "../../../components/SinglePost";
+
 import "./post.scss"
+import {PostController} from "../../../server/controller/PostController";
+import {router} from "../../../config/router";
 
 export default class Post extends Component {
   config: Config = {
@@ -22,7 +24,6 @@ export default class Post extends Component {
   }
 
   handleClick(value) {
-    console.log(value);
     this.setState({
       current: value
     })
@@ -34,7 +35,7 @@ export default class Post extends Component {
 
   componentDidShow(): void {
     commReq({
-      url: "community/api/post/get/post/all",
+      url: PostController.COMMUNITY_API_POST_GET_POST_ALL,
       method: "POST"
     }).then(ret => {
       this.setState({
@@ -45,7 +46,7 @@ export default class Post extends Component {
   }
 
   toAddPage() {
-    Taro.navigateTo({url: "/pages/post/add"})
+    Taro.navigateTo({url: router.post_add})
   }
 
   showBottom = () => {
@@ -62,15 +63,14 @@ export default class Post extends Component {
 
   logout = () => {
     localStorage.removeItem("token");
-    Taro.redirectTo({url: "/pages/index/index"})
+    Taro.redirectTo({url: router.index})
   };
 
   render() {
-    console.log(this.state.text);
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
-      return (<SinglePost key={key} nickname={post.userVO.nickname} content={post.content} date='2019'/>)
+      return (<SinglePost key={key} nickname={post.userVO.nickname} content={post.content} date='2019' />)
     });
 
     return (

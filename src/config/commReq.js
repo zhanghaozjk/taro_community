@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import {router} from "./router";
 
 export const BASE_URL = 'http://192.168.0.103:8080/';
 
@@ -30,12 +31,10 @@ export function commReq(param) {
     };
 
     return Taro.request(param).then(res=>{
-      // console.log(res);
       if (res.data.code === 401) {
         if (res.data.msg === "need re-auth" && res.data.data.token != null){
           // 更新一次token之后再次发起请求
           localStorage.setItem("token", res.data.data.token);
-          // debugger
           return commReq(param);
         } else {
           return res;
@@ -45,7 +44,7 @@ export function commReq(param) {
       }
     });
   } else {
-    Taro.redirectTo({url: "/pages/login/login"});
+    Taro.redirectTo({url: router.login});
     return new Promise(function(resolve) {
       resolve({'data':{'code': 401, "msg": "need auth"}});
     });

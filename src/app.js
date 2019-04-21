@@ -4,7 +4,7 @@ import {View} from "@tarojs/components";
 import 'taro-ui/dist/style/index.scss'
 import './app.scss'
 import Index from "./pages/index";
-
+import {router} from "./config/router"
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5') {
@@ -16,12 +16,12 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
-      'pages/login/login',
-      '/pages/post/post',
-      '/pages/post/add',
-      '/pages/regist/regist',
-      '/pages/regist/emailCheck'
+      '/pages/index',
+      '/pages/login',
+      '/pages/land/post',
+      '/pages/land/post/add',
+      '/pages/register',
+      '/pages/register/emailCheck'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -33,9 +33,9 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('token') == null) {
-      Taro.redirectTo({url: "/pages/login/login"})
+      Taro.redirectTo({url: router.login})
     } else {
-      Taro.redirectTo({url: "/pages/post/post"})
+      Taro.redirectTo({url: router.post})
     }
   }
 
@@ -59,4 +59,4 @@ class App extends Component {
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App />, document.getElementById('app'));

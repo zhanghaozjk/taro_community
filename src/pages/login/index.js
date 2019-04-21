@@ -4,8 +4,10 @@ import {AtButton, AtForm, AtInput, AtToast} from "taro-ui";
 
 import './login.scss'
 import {BASE_URL} from '../../config/commReq'
+import {UserController} from "../../server/controller/UserController";
+import {router} from "../../config/router";
 
-export default class Login extends Component {
+export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,25 +36,24 @@ export default class Login extends Component {
 
     // 登陆
     Taro.request({
-      url: BASE_URL + 'community/export/api/user/login',
+      url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_LOGIN,
       data: {'username': this.state.username, 'password': this.state.password},
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       method: "POST"
     }).then(res => {
-      console.log(res.data);
       // 正常情况登陆
       if (res.data.code === 200 && res.data.data.token != null) {
         localStorage.setItem("token", res.data.data.token)
         Taro.redirectTo({
-          url: '/pages/post/post'
+          url: router.post
         })
       } else if(res.data.code === 200 && res.data.data.status ==="0") {
         // 邮箱需要验证逻辑
         // 发起发出邮件的请求
         Taro.request({
-          url: BASE_URL + "community/export/api/user/email/register/send/code",
+          url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_SEND_CODE,
           data: {email: res.data.data.email, username: res.data.data.username},
           header: {
             'content-type': 'application/json'
@@ -60,11 +61,10 @@ export default class Login extends Component {
           method: "POST"
         });
         Taro.redirectTo({
-          url: '/pages/regist/emailCheck?username='+res.data.data.username+"&email="+res.data.data.email
+          url: router.register_email + '?username='+res.data.data.username+"&email="+res.data.data.email
         })
       } else if (res.data.code === 401 && res.data.msg === "Unauthorized") {
         this.showLoginErrorToast("用户名或密码错误");
-        console.log(this.state)
       }
     });
   };
@@ -84,7 +84,6 @@ export default class Login extends Component {
             placeholder='请输入用户名'
             value={this.state.username}
             onChange={this.handleChangeUsername.bind(this)}
-            onBlur={this.props.changeUsername}
             className='lg-input'
             clear
           />
@@ -146,6 +145,6 @@ export default class Login extends Component {
   };
 
   toRegist = () => {
-    Taro.redirectTo({url: "/pages/regist/regist"})
+    Taro.redirectTo({url: router.register})
   };
 }

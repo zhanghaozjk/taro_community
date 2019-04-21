@@ -1,18 +1,22 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import Taro, {Component, Config} from '@tarojs/taro'
+import {View} from '@tarojs/components'
 import {AtButton, AtForm, AtIcon, AtInput, AtToast} from "taro-ui";
 
 import {BASE_URL} from "../../config/commReq";
 import './regist.scss'
+import {UserController} from "../../server/controller/UserController";
+import {router} from "../../config/router";
+import {checkEmail} from "../../utils/ApplicationUtils";
 
-export default class regist extends Component {
+export default class index extends Component {
   config: Config = {
     navigationBarTitleText: '注册'
   }
+
   constructor(props) {
     super(props);
     this.state = {
-      email: sessionStorage.getItem("username") == null ? '': sessionStorage.getItem("username"),
+      email: sessionStorage.getItem("username") == null ? '' : sessionStorage.getItem("username"),
       password: '',
       passwordVisible: 'password',
       verifyCode: '',
@@ -24,10 +28,9 @@ export default class regist extends Component {
   }
 
   checkEmailExist = () => {
-    let pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if (pattern.test(this.state.email)) {
+    if (checkEmail(this.state.email)) {
       Taro.request({
-        url: BASE_URL + "community/export/api/email/check",
+        url: BASE_URL + UserController.COMMUNITY_EXPORT_API_EMAIL_CHECK,
         data: {'email': this.state.email},
         method: "POST",
         header: {
@@ -40,7 +43,6 @@ export default class regist extends Component {
             atToastShow: false,
             atToastText: '',
           });
-          return;
         } else {
           this.setState({
             atToastShow: true,
@@ -105,7 +107,6 @@ export default class regist extends Component {
   }
 
   doRegist = () => {
-    // Taro.redirectTo({url: "/pages/regist/emailCheck?email="+ this.state.email})
     if (this.state.abroadClick) {
       this.setState({
         atToastShow: true,
@@ -114,9 +115,8 @@ export default class regist extends Component {
       return;
     }
     // 第一次请求 请求注册成功/失败
-    console.log(this.state);
     Taro.request({
-      url: BASE_URL + "community/export/api/user/email/register",
+      url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER,
       data: {email: this.state.email, password: this.state.password},
       header: {
         'content-type': 'application/json'
@@ -124,24 +124,21 @@ export default class regist extends Component {
       method: "POST"
     }).then(res => {
       if (res.data.code === 200 && res.data.msg === this.state.email) {
-        console.log(res.data);
-        console.log(this.state)
         this.setState({
           // 更新返回的username
           username: res.data.data.username
         });
         // 发起发出邮件的请求
         Taro.request({
-          url: BASE_URL + "community/export/api/user/email/register/send/code",
+          url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_SEND_CODE,
           data: {email: this.state.email, password: this.state.password, username: this.state.email},
           header: {
             'content-type': 'application/json'
           },
           method: "POST"
         }).then(anoRes => {
-          console.log(anoRes)
           if (anoRes.data.code === 200 && anoRes.data.msg === this.state.email) {
-            Taro.redirectTo({url: '/pages/regist/emailCheck?email='+this.state.email+"&username="+this.state.username});
+            Taro.redirectTo({url: router.register_email + '?email=' + this.state.email + "&username=" + this.state.username});
           } else {
             this.setState({
               atToastShow: true,
@@ -159,7 +156,7 @@ export default class regist extends Component {
   };
 
   toLogin = () => {
-    Taro.redirectTo({url: "/pages/login/login"})
+    Taro.redirectTo({url: router.login})
   };
 
   handleChangeEmail(value) {

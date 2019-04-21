@@ -1,6 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import './index.scss'
+import {router} from "../../config/router";
 
 export default class Index extends Component {
   config: Config = {
@@ -9,9 +9,9 @@ export default class Index extends Component {
 
   componentDidMount(): void {
     if (localStorage.getItem('token') == null) {
-      Taro.redirectTo({url: "/pages/login/login"})
+      Taro.redirectTo({url: router.login})
     } else {
-      Taro.redirectTo({url: "/pages/post/post"})
+      Taro.redirectTo({url: router.post})
     }
   }
 

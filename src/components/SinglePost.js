@@ -1,8 +1,7 @@
 import Taro, {Component, Config} from '@tarojs/taro'
-import {Image, Text, View} from '@tarojs/components'
+import {Image, View} from '@tarojs/components'
 
 import Head from '../imgs/head.jpg'
-import Location from '../imgs/location.png'
 
 import './singlePost.scss'
 
@@ -26,7 +25,6 @@ export default class SinglePost extends Component {
   }
 
   render() {
-    // console.log(this.props.data);
     return (
       <View className='everyCard'>
         <View className='topLine'>
@@ -39,8 +37,8 @@ export default class SinglePost extends Component {
             <View className='date_location'>
               {this.props.date}
               {/*<Image*/}
-                {/*src={Location}*/}
-                {/*style='width: 12px;height: 12px;position: relative;top: 2px;left: 2px;padding: 20px 10px 0 10px; '*/}
+              {/*src={Location}*/}
+              {/*style='width: 12px;height: 12px;position: relative;top: 2px;left: 2px;padding: 20px 10px 0 10px; '*/}
               {/*/>*/}
               {this.state.location}
             </View>

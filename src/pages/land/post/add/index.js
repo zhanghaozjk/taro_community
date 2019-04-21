@@ -2,9 +2,10 @@ import Taro, {Component, Config} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtList, AtListItem, AtNavBar, AtTextarea} from "taro-ui";
 
-import './index.scss'
-import emptyString from "../../../utils/ApplicationUtils";
-import {commReq} from '../../../config/commReq'
+import './add_post.scss'
+import {commReq} from '../../../../config/commReq'
+import {PostController} from "../../../../server/controller/PostController";
+import {emptyString} from "../../../../utils/ApplicationUtils";
 
 export default class AddPost extends Component {
   config: Config = {
@@ -38,7 +39,7 @@ export default class AddPost extends Component {
       alert('内容为空不得提交')
     } else {
       commReq({
-        url: 'community/api/post/put/new/post',
+        url: PostController.COMMUNITY_API_POST_PUT_NEW_POST,
         method: 'PUT',
         data: {content: this.state.content}
       }).then((res) => {
@@ -67,18 +68,18 @@ export default class AddPost extends Component {
         </View>
         <View className='text_area'>
           <AtTextarea className='text_box'
-                      value={this.state.content}
-                      maxLength={this.state.maxLength}
-                      onChange={this.textHandler.bind(this)}
-                      placeholder='这一刻的想法...'
-                      fixed
-                      height='350'
+            value={this.state.content}
+            maxLength={this.state.maxLength}
+            onChange={this.textHandler.bind(this)}
+            placeholder='这一刻的想法...'
+            fixed
+            height='350'
           />
           <View className='test_area_list'>
             <AtList hasBorder>
-              <AtListItem title='所在位置' arrow='right' iconInfo={this.iconInfoLocation}/>
-              <AtListItem title='谁可以看' arrow='right' extraText='公开' iconInfo={this.iconInfoBlock}/>
-              <AtListItem title='提醒谁看' arrow='right' iconInfo={this.iconInfoMention}/>
+              <AtListItem title='所在位置' arrow='right' iconInfo={this.iconInfoLocation} />
+              <AtListItem title='谁可以看' arrow='right' extraText='公开' iconInfo={this.iconInfoBlock} />
+              <AtListItem title='提醒谁看' arrow='right' iconInfo={this.iconInfoMention} />
             </AtList>
           </View>
         </View>

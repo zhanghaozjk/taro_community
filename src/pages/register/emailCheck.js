@@ -1,9 +1,11 @@
 import Taro, {Component, Config} from '@tarojs/taro'
 import {View} from '@tarojs/components'
+import {AtButton, AtForm, AtIcon, AtInput, AtToast} from "taro-ui";
 
 import './regist.scss'
-import {AtButton, AtForm, AtIcon, AtInput, AtToast} from "taro-ui";
 import {BASE_URL} from "../../config/commReq";
+import {UserController} from "../../server/controller/UserController";
+import {router} from "../../config/router";
 
 export default class emailCheck extends Component {
   config: Config = {
@@ -30,7 +32,7 @@ export default class emailCheck extends Component {
 
   doVerify = () => {
     Taro.request({
-      url: BASE_URL + "community/export/api/user/email/register/verify",
+      url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_VERIFY,
       data: {'email': this.state.email, 'username': this.state.username, 'verifyCode': this.state.verifyCode},
       header: {
         'content-type': 'application/json'
@@ -53,7 +55,7 @@ export default class emailCheck extends Component {
 
   errorToast = () => {
     if (this.state.regSuccess === true) {
-      Taro.redirectTo({url: "/pages/index/index"})
+      Taro.redirectTo({url: router.index})
     } else {
       this.setState({
         atToastShow: false,
@@ -65,7 +67,7 @@ export default class emailCheck extends Component {
   reMail = () => {
     // 发起发出邮件的请求
     Taro.request({
-      url: BASE_URL + "community/export/api/user/email/register/send/code",
+      url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_SEND_CODE,
       data: {email: this.state.email, password: this.state.password, username: this.state.username},
       header: {
         'content-type': 'application/json'
@@ -73,7 +75,7 @@ export default class emailCheck extends Component {
       method: "POST"
     }).then(anoRes => {
       if (anoRes.data.code === 200 && anoRes.data.msg === this.state.email) {
-        Taro.redirectTo({url: '/pages/regist/emailCheck?email=' + this.state.email + "&username=" + this.state.username});
+        Taro.redirectTo({url: router.register_email + '?email=' + this.state.email + "&username=" + this.state.username});
       } else {
         this.setState({
           atToastShow: true,
@@ -85,14 +87,14 @@ export default class emailCheck extends Component {
 
   backRegister = () => {
     Taro.redirectTo({
-      url: "/pages/regist/regist"
+      url: router.register
     })
-  }
+  };
 
   render() {
     return (
       <View className='rg-base'>
-        <View className='at-article__h1'> <AtIcon value='chevron-left' onClick={this.backRegister} /> 注册</View>
+        <View className='at-article__h1'> <AtIcon value='chevron-left' onClick={this.backRegister}/> 注册</View>
         <View className='at-article__h2'> 最后一步：您还需要邮箱验证 </View>
         <View className='at-article__p'> 已将注册邮件发送至您的邮箱: </View>
         <View className='at-article__h3 rg-email'> {this.state.email} </View>
