@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import {router} from "./router";
+import {UserController} from "../server/controller/UserController";
 
 export const BASE_URL = 'http://192.168.0.103:8080/';
 
@@ -49,4 +50,14 @@ export function commReq(param) {
       resolve({'data':{'code': 401, "msg": "need auth"}});
     });
   }
+}
+
+export function logout(){
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  Taro.request({
+    url: BASE_URL + UserController.COMMUNITY_EXPORT_API_USER_LOGOUT,
+    method: "POST"
+  });
+  Taro.redirectTo({url: router.index});
 }

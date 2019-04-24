@@ -24,7 +24,9 @@ export default class Post extends Component {
   componentWillMount(): void {
     commReq({
       url: PostController.COMMUNITY_API_POST_GET_POST_ALL,
-      method: "POST"
+      method: "POST",
+      data: {username: localStorage.getItem("username")},
+      header: {'content-type': 'application/x-www-form-urlencoded'}
     }).then(ret => {
       this.setState({
         text: ret.data.data.postVoList
@@ -48,22 +50,36 @@ export default class Post extends Component {
     })
   };
 
+  showBottom = () => {
+    this.setState({
+      bottomOpened: true
+    })
+  };
+
+  cancelBottom = () => {
+    this.setState({
+      bottomOpened: false
+    })
+  };
+
+
+
   render() {
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
       return (<SinglePost key={key} nickname={post.userVO.nickname} content={post.content} date='2019' />)
     });
-    {/*<View className='window'>*/}
 
     return (
       <View>
         <AtNavBar
-          title='关注'
+          title='我的'
           fixed
           rightFirstIconType='add'
           rightSecondIconType='user'
           onClickRgIconSt={this.toAddPage}
+          onClickRgIconNd={this.showBottom}
         />
         <View className='list-holder'>
           <View className='post-list'>

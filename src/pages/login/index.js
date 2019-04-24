@@ -45,7 +45,7 @@ export default class Index extends Component {
     }).then(res => {
       // 正常情况登陆
       if (res.data.code === 200 && res.data.data.token != null) {
-        localStorage.setItem("token", res.data.data.token)
+        localStorage.setItem("token", res.data.data.token),
         Taro.redirectTo({
           url: router.post
         })
@@ -117,6 +117,7 @@ export default class Index extends Component {
       username: value
     });
     sessionStorage.setItem("username", value);
+    localStorage.setItem("username", value);
     return value
   }
 

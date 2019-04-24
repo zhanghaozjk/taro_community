@@ -8,10 +8,10 @@ export default class Index extends Component {
   };
 
   componentDidMount(): void {
-    if (localStorage.getItem('token') == null) {
+    if (localStorage.getItem('token') == null || localStorage.getItem("username") == null) {
       Taro.redirectTo({url: router.login})
     } else {
-      Taro.redirectTo({url: router.post})
+      Taro.redirectTo({url: router.land})
     }
   }
 
