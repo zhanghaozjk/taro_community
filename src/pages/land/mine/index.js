@@ -68,7 +68,7 @@ export default class Post extends Component {
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
-      return (<SinglePost key={key} nickname={post.userVO.nickname} content={post.content} date='2019' />)
+      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date='2019' />)
     });
 
     return (

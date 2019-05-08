@@ -4,6 +4,8 @@ import {Image, View} from '@tarojs/components'
 import Head from '../imgs/head.jpg'
 
 import './singlePost.scss'
+import {commReq} from "../config/commReq";
+import {PostController} from "../server/controller/PostController";
 
 export default class SinglePost extends Component {
   config: Config = {
@@ -24,6 +26,16 @@ export default class SinglePost extends Component {
     }
   }
 
+  onLike = () => {
+    let id = this.props.postId;
+    commReq({
+      url: PostController.COMMUNITY_API_POST_LIKE_POST,
+      data: {id: id},
+      method: "post",
+      header: {'content-type': 'application/x-www-form-urlencoded'}
+    })
+  };
+
   render() {
     return (
       <View className='everyCard'>
@@ -35,20 +47,15 @@ export default class SinglePost extends Component {
           <View className='rightPart'>
             <View className='name'>{this.props.nickname}</View> <br/>
             <View className='date_location'>
-              {this.props.date}
-              {/*<Image*/}
-              {/*src={Location}*/}
-              {/*style='width: 12px;height: 12px;position: relative;top: 2px;left: 2px;padding: 20px 10px 0 10px; '*/}
-              {/*/>*/}
-              {this.state.location}
+              {this.props.date} {this.state.location}
             </View>
           </View>
         </View>
         <View className='content'>{this.props.content}</View>
         <View className='bottomLine'>
-          <View className='btn1 div'>转发</View>
-          <View className='btn2 div'>评论</View>
-          <View className='btn3 div'>点赞</View>
+          <View className='btn1 div'>{this.state.forward}</View>
+          <View className='btn2 div'>{this.state.comment}</View>
+          <View className='btn3 div' onClick={this.onLike}>{this.state.like}</View>
         </View>
       </View>
     );

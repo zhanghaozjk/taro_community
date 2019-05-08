@@ -52,9 +52,8 @@ export default class Post extends Component {
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
-      return (<SinglePost key={key} nickname={post.userVO.nickname} content={post.content} date='2019' />)
+      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date={post.date} />)
     });
-    {/*<View className='window'>*/}
 
     return (
       <View>
@@ -64,6 +63,7 @@ export default class Post extends Component {
           rightFirstIconType='add'
           rightSecondIconType='user'
           onClickRgIconSt={this.toAddPage}
+          onClickRgIconNd={this.showBottom}
         />
         <View className='list-holder'>
           <View className='post-list'>

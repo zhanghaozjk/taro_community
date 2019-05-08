@@ -139,6 +139,11 @@ export default class index extends Component {
         }).then(anoRes => {
           if (anoRes.data.code === 200 && anoRes.data.msg === this.state.email) {
             Taro.redirectTo({url: router.register_email + '?email=' + this.state.email + "&username=" + this.state.username});
+          } else if (anoRes.data.code === 200 && anoRes.data.msg === "email exists") {
+            this.setState({
+              atToastShow: true,
+              atToastText: '邮箱已经存在'
+            });
           } else {
             this.setState({
               atToastShow: true,
