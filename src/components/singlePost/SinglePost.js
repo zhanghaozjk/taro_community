@@ -1,11 +1,11 @@
 import Taro, {Component, Config} from '@tarojs/taro'
 import {Image, View} from '@tarojs/components'
 
-import Head from '../imgs/head.jpg'
+import Head from '../../imgs/head.jpg'
 
 import './singlePost.scss'
-import {commReq} from "../config/commReq";
-import {PostController} from "../server/controller/PostController";
+import {commReq} from "../../config/commReq";
+import {PostController} from "../../server/controller/PostController";
 
 export default class SinglePost extends Component {
   config: Config = {

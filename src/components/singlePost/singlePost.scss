@@ -50,23 +50,24 @@
   margin-top: -10px;
   text-align: left;
 }
-.bottomLine{
+.everyCard .bottomLine{
   display:flex;
   flex-flow:row;
   border-top: 1px solid #ccc;
   line-height: 60px;
 }
-.bottomLine .div{
+.everyCard .bottomLine .div{
   flex:1;
   height: 60px;
-
   border-right: 1px solid #ccc;
   text-align: center;
 }
-.bottomLine .div:last-child{
+
+.everyCard .bottomLine .div:last-child{
   border-right: 0;
 }
-.bottomLine view a{
+
+.everyCard .bottomLine view a{
   text-decoration: none;
   color: #333;
 }

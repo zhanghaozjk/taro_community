@@ -3,7 +3,7 @@ import {View} from '@tarojs/components'
 import {AtActionSheet, AtActionSheetItem, AtNavBar} from "taro-ui";
 
 import {commReq, logout} from "../../../config/commReq";
-import SinglePost from "../../../components/SinglePost";
+import SinglePost from "../../../components/singlePost/SinglePost";
 
 import {PostController} from "../../../server/controller/PostController";
 import {router} from "../../../config/router";

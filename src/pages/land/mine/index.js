@@ -3,10 +3,11 @@ import {View} from '@tarojs/components'
 import {AtActionSheet, AtActionSheetItem, AtNavBar} from "taro-ui";
 
 import {commReq, logout} from "../../../config/commReq";
-import SinglePost from "../../../components/SinglePost";
+import SinglePost from "../../../components/singlePost/SinglePost";
 
 import {PostController} from "../../../server/controller/PostController";
 import {router} from "../../../config/router";
+import MineCard from "../../../components/mineCard/MineCard";
 
 export default class Post extends Component {
   config: Config = {
@@ -68,7 +69,7 @@ export default class Post extends Component {
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
-      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date='2019' />)
+      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date={post.date} />)
     });
 
     return (
@@ -82,6 +83,7 @@ export default class Post extends Component {
           onClickRgIconNd={this.showBottom}
         />
         <View className='list-holder'>
+          <MineCard />
           <View className='post-list'>
             {postsList}
           </View>
