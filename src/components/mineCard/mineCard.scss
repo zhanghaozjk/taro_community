@@ -1,5 +1,5 @@
 .mineCard {
-  border: 1px solid #7e7e7e;
+  //border: 1px solid #7e7e7e;
   width: 90%;
   margin: 10vh auto -5vh auto;
   //box-shadow: 0 2px 6px hsla(0, 0%, 39%, .3);
@@ -7,6 +7,7 @@
   text-align: center;
   color: #2c3e50;
   font-size: 30px;
+  background-color: #eee;
 }
 
 .mineCard .topLine{
@@ -20,13 +21,23 @@
   text-align: left;
 }
 .mineCard .topLine .rightPart .name{
-  padding: 50px 10px 0 10px;
+  padding: 30px 10px 0 10px;
   margin-bottom: 10px;
   display: inline-block;
   line-height: 10px;
   color: black;
   font-size: 35px;
 }
+
+.mineCard .topLine .avatar {
+  margin: -10px 10px 10px 5px
+}
+
+.mineCard .upperLine .avatar .at-avatar--large {
+  margin: 0 auto;
+  background-color: black;
+}
+
 .mineCard .topLine .rightPart .description {
   padding-left: 10px;
   padding-bottom: 20px;

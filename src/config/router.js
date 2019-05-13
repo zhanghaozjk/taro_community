@@ -7,7 +7,9 @@ export const router = {
   register_email: '/pages/register/emailCheck',
   land: '/pages/land',
   mine: '/pages/land/mine',
-  discover: '/pages/land/discover'
+  discover: '/pages/land/discover',
+  mine_edit: '/pages/land/mine/edit',
+  comment: '/pages/comment',
 };
 
 

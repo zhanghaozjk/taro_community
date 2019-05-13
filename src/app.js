@@ -20,11 +20,13 @@ class App extends Component {
       '/pages/login',
       '/pages/land',
       '/pages/land/mine',
+      '/pages/land/mine/edit',
       '/pages/land/discover',
       '/pages/land/post',
       '/pages/land/post/add',
       '/pages/register',
-      '/pages/register/emailCheck'
+      '/pages/register/emailCheck',
+      '/pages/comment'
     ],
     window: {
       backgroundTextStyle: 'light',

@@ -7,6 +7,7 @@ import SinglePost from "../../../components/singlePost/SinglePost";
 
 import {PostController} from "../../../server/controller/PostController";
 import {router} from "../../../config/router";
+import './post.scss'
 
 export default class Post extends Component {
   config: Config = {
@@ -58,7 +59,7 @@ export default class Post extends Component {
     return (
       <View>
         <AtNavBar
-          title='关注'
+          title='关 注'
           fixed
           rightFirstIconType='add'
           rightSecondIconType='user'

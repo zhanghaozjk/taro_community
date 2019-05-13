@@ -5,7 +5,7 @@ import {AtList, AtListItem, AtNavBar, AtTextarea} from "taro-ui";
 import './add_post.scss'
 import {commReq} from '../../../../config/commReq'
 import {PostController} from "../../../../server/controller/PostController";
-import {emptyString} from "../../../../utils/ApplicationUtils";
+import {emptyString, getAliKey, getAliMapUrl} from "../../../../utils/ApplicationUtils";
 
 export default class AddPost extends Component {
   config: Config = {
@@ -16,7 +16,8 @@ export default class AddPost extends Component {
     super(props);
     this.state = {
       content: '',
-      maxLength: 200
+      maxLength: 200,
+      location: '所在位置'
     }
   }
 
@@ -33,6 +34,20 @@ export default class AddPost extends Component {
   backUpperPage() {
     Taro.navigateBack({delta: 1})
   }
+
+  aliLocation = () => {
+    Taro.request({
+      url: getAliMapUrl(),
+      data: {
+        key: getAliKey()
+      },
+      method: "GET",
+    }).then(res => {
+      this.setState({
+        location: res.data.city
+      })
+    })
+  };
 
   postMessage = () => {
     if (emptyString(this.state.content)) {
@@ -77,7 +92,9 @@ export default class AddPost extends Component {
           />
           <View className='test_area_list'>
             <AtList hasBorder>
-              <AtListItem title='所在位置' arrow='right' iconInfo={this.iconInfoLocation} />
+              <AtListItem title={this.state.location} arrow='right' iconInfo={this.iconInfoLocation}
+                onClick={this.aliLocation}
+              />
               <AtListItem title='谁可以看' arrow='right' extraText='公开' iconInfo={this.iconInfoBlock} />
               <AtListItem title='提醒谁看' arrow='right' iconInfo={this.iconInfoMention} />
             </AtList>

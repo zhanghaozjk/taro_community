@@ -6,6 +6,8 @@ import Head from '../../imgs/head.jpg'
 import './singlePost.scss'
 import {commReq} from "../../config/commReq";
 import {PostController} from "../../server/controller/PostController";
+import {AtAvatar} from "taro-ui";
+import {router} from "../../config/router";
 
 export default class SinglePost extends Component {
   config: Config = {
@@ -36,14 +38,23 @@ export default class SinglePost extends Component {
     })
   };
 
+  onComment = () => {
+    let params = '?id=' + this.props.postId + '&nickname=' + this.props.nickname + '&date=' + this.props.date +
+      '&location=' + this.state.location + '&content=' + this.props.content;
+    Taro.navigateTo({url: router.comment + params})
+  };
+
   render() {
     return (
       <View className='everyCard'>
         <View className='topLine'>
-          <Image
-            src={Head}
-            style='width: 60px; height: 60px; padding: 5px 10px 0 5px;'
-          />
+          {/*<Image*/}
+          {/*src={Head}*/}
+          {/*style='width: 60px; height: 60px; margin: 5px 10px 0 5px; border-radius:50%;'*/}
+          {/*/>*/}
+          <View className='avatar'>
+            <AtAvatar circle text={this.props.nickname}/>
+          </View>
           <View className='rightPart'>
             <View className='name'>{this.props.nickname}</View> <br/>
             <View className='date_location'>
@@ -54,7 +65,7 @@ export default class SinglePost extends Component {
         <View className='content'>{this.props.content}</View>
         <View className='bottomLine'>
           <View className='btn1 div'>{this.state.forward}</View>
-          <View className='btn2 div'>{this.state.comment}</View>
+          <View className='btn2 div' onClick={this.onComment}>{this.state.comment}</View>
           <View className='btn3 div' onClick={this.onLike}>{this.state.like}</View>
         </View>
       </View>

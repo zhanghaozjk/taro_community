@@ -127,6 +127,13 @@
     dart-sass "^1.17.4"
     scss-bundle "^2.5.1"
 
+"@tarojs/plugin-stylus@^1.2.26":
+  version "1.2.26"
+  resolved "https://registry.npm.taobao.org/@tarojs/plugin-stylus/download/@tarojs/plugin-stylus-1.2.26.tgz#0bc7fcfa272377c011d766d3585f77c8a062aaac"
+  integrity sha1-C8f8+icjd8AR12bTWF93yKBiqqw=
+  dependencies:
+    stylus "^0.54.5"
+
 "@tarojs/plugin-uglifyjs@1.2.26":
   version "1.2.26"
   resolved "http://registry.npm.taobao.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.26.tgz#224e2e23c24140bb9e260bad95f646a1fcac6705"
@@ -6905,7 +6912,7 @@ stylus-loader@3.0.2:
     lodash.clonedeep "^4.5.0"
     when "~3.6.x"
 
-stylus@0.54.5:
+stylus@0.54.5, stylus@^0.54.5:
   version "0.54.5"
   resolved "http://registry.npm.taobao.org/stylus/download/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"
   integrity sha1-QrlWCTHKcJDOhRWnmLqeaqPW3Hk=

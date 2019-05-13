@@ -31,9 +31,9 @@ export function commReq(param) {
       ...param,
     };
 
-    return Taro.request(param).then(res=>{
+    return Taro.request(param).then(res => {
       if (res.data.code === 401) {
-        if (res.data.msg === "need re-auth" && res.data.data.token != null){
+        if (res.data.msg === "need re-auth" && res.data.data.token != null) {
           // 更新一次token之后再次发起请求
           localStorage.setItem("token", res.data.data.token);
           return commReq(param);
@@ -45,14 +45,15 @@ export function commReq(param) {
       }
     });
   } else {
+    // todo 更新token 覆盖promise
     Taro.redirectTo({url: router.login});
-    return new Promise(function(resolve) {
-      resolve({'data':{'code': 401, "msg": "need auth"}});
+    return new Promise(function (resolve) {
+      resolve({'data': {'code': 401, "msg": "need auth"}});
     });
   }
 }
 
-export function logout(){
+export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("username");
   Taro.request({
