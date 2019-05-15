@@ -35,12 +35,10 @@ export default class MineCard extends Component {
       data: data,
       header: {'content-type': 'application/x-www-form-urlencoded'}
     }).then(res => {
-      console.log(res);
       this.setState({
         mineUserVO: res.data.data.mineUserVO
       })
     });
-    console.log(this)
   }
 
   editInfo =() => {

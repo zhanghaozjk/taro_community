@@ -1,0 +1,29 @@
+.editPage .editHolder {
+  margin-top: 2rem;
+}
+
+.editPage .editHolder .avatar .at-avatar  {
+  margin: 0 auto;
+}
+
+.editPage .editHolder .avatar {
+  width: 100%;
+}
+
+.editPage .editHolder .propsView {
+  display: flex;
+  width: 90%;
+  margin: 10px auto;
+  font-size: 0.68267rem;
+}
+
+.editPage .editHolder .propsView .catView {
+  margin-left: 0;
+  flex: 1;
+}
+
+.editPage .editHolder .propsView .dogView {
+  margin-right: 0;
+  flex: 1;
+  text-align: right;
+}

@@ -29,8 +29,9 @@
   font-size: 35px;
 }
 
-.mineCard .topLine .avatar {
-  margin: -10px 10px 10px 5px
+.mineCard .upperLine .avatar {
+  margin: 0 10px 0 5px;
+  padding-top: 10px;
 }
 
 .mineCard .upperLine .avatar .at-avatar--large {
