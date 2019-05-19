@@ -69,13 +69,15 @@ export default class Post extends Component {
     let posts = this.state.text ? this.state.text : [];
 
     let postsList = posts.map(function (post, key) {
-      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date={post.date} />)
+      return (<SinglePost key={key} postId={post.id} nickname={post.userVO.nickname} content={post.content} date={post.date} location={post.location}
+        commentCount={post.commentCount} likeCount={post.likeCount} likePost={post.likePost}
+      />)
     });
 
     return (
       <View>
         <AtNavBar
-          title='我的'
+          title='我 的'
           fixed
           rightFirstIconType='add'
           rightSecondIconType='user'

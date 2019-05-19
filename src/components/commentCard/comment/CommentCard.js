@@ -9,7 +9,7 @@ import {PostController} from "../../../server/controller/PostController";
 export default class CommentCard extends Component {
   config: Config = {
     navigationBarTitleText: ''
-  }
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ export default class CommentCard extends Component {
     }
   }
 
-  componentWillMount(): void {
+  componentDidMount(): void {
     commReq({
       url: PostController.COMMUNITY_API_POST_COMMENT_GET + this.props.postId
     }).then(res => {

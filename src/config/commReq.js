@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import {router} from "./router";
 import {UserController} from "../server/controller/UserController";
 
-export const BASE_URL = 'http://192.168.0.103:8080/';
+export const BASE_URL = 'http://192.168.1.103:8080/';
 
 export function commReq(param) {
   const defaultUrl = BASE_URL;

@@ -5,6 +5,7 @@ import {AtNavBar, AtInput, AtAvatar, AtSlider, AtSwitch, AtDivider, AtToast} fro
 import './mineEdit.scss';
 import {commReq} from "../../../../config/commReq";
 import {UserController} from "../../../../server/controller/UserController";
+import {emptyString} from "../../../../utils/ApplicationUtils"
 
 export default class index extends Component {
   config = {
@@ -28,7 +29,7 @@ export default class index extends Component {
   }
 
   backUpperPage = () => {
-    if (this.state.changed) {
+    if (this.state.changed && !(emptyString(this.state.userInformationVO.nickname))) {
       commReq({
         url: UserController.COMMUNITY_API_USER_INFORMATION,
         method: "PUT",
