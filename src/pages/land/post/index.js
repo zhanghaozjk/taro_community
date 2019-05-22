@@ -1,6 +1,6 @@
 import Taro, {Component, Config} from '@tarojs/taro'
 import {View} from '@tarojs/components'
-import {AtActionSheet, AtActionSheetItem, AtNavBar} from "taro-ui";
+import {AtActionSheet, AtActionSheetItem, AtLoadMore, AtNavBar} from "taro-ui";
 
 import {commReq, logout} from "../../../config/commReq";
 import SinglePost from "../../../components/singlePost/SinglePost";
@@ -18,7 +18,9 @@ export default class Post extends Component {
     super(props);
     this.state = {
       text: '',
-      bottomOpened: false
+      count: 0,
+      bottomOpened: false,
+      moreStatus: 'more'
     }
   }
 
@@ -27,8 +29,13 @@ export default class Post extends Component {
       url: PostController.COMMUNITY_API_POST_GET_POST_ALL,
       method: "POST"
     }).then(ret => {
+      let count = ret.data.data.count;
+      let text = ret.data.data.postVoList;
+      let more = count >= text.length ? 'more' : 'noMore';
       this.setState({
-        text: ret.data.data.postVoList
+        text: text,
+        count: count,
+        moreStatus: more
       })
     });
   }
@@ -48,6 +55,27 @@ export default class Post extends Component {
       bottomOpened: false
     })
   };
+
+  loadMore () {
+    let that = this;
+    this.setState({
+      moreStatus: 'loading'
+    });
+    // 开始加载
+    commReq({
+      url: PostController.COMMUNITY_API_POST_GET_POST_ALL,
+      method: "POST",
+      data: {start: this.state.text.length},
+      header: { 'content-type': 'application/x-www-form-urlencoded' }
+    }).then(res => {
+      let text = that.state.text.concat(res.data.data.postVoList);
+      let more = text.length >= that.state.count ? 'noMore' : 'more';
+      that.setState({
+        text: text,
+        moreStatus: more
+      })
+    });
+  }
 
   render() {
     let posts = this.state.text ? this.state.text : [];
@@ -72,7 +100,10 @@ export default class Post extends Component {
           <View className='post-list'>
             {postsList}
           </View>
-          <View className='at-article__info'>- 到底了 -</View>
+          <AtLoadMore
+            onClick={this.loadMore.bind(this)}
+            status={this.state.moreStatus}
+          />
         </View>
         <AtActionSheet isOpened={this.state.bottomOpened} cancelText='取消' title='用户管理' onCancel={this.cancelBottom}>
           <AtActionSheetItem onClick={logout}>

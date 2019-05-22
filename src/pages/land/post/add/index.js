@@ -56,7 +56,7 @@ export default class AddPost extends Component {
       commReq({
         url: PostController.COMMUNITY_API_POST_PUT_NEW_POST,
         method: 'PUT',
-        data: {content: this.state.content, location: this.state.location}
+        data: {content: this.state.content, location: this.state.location === '所在位置' ? '' : this.state.location}
       }).then((res) => {
         if (res.data.data.success === true) {
           this.backUpperPage()
