@@ -11,3 +11,15 @@
 .text_area .text_box {
   border: 0;
 }
+
+.text_area .recommend {
+  display: flex;
+}
+
+.text_area .recommend .tag {
+  padding: 0 10px;
+}
+
+.text_area .recommend .text{
+  margin: auto 0;
+}

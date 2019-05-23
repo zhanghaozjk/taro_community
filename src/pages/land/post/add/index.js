@@ -1,6 +1,6 @@
 import Taro, {Component, Config} from '@tarojs/taro'
 import {View} from '@tarojs/components'
-import {AtList, AtListItem, AtNavBar, AtTextarea} from "taro-ui";
+import {AtList, AtListItem, AtNavBar, AtTag, AtTextarea} from "taro-ui";
 
 import './add_post.scss'
 import {commReq} from '../../../../config/commReq'
@@ -17,7 +17,12 @@ export default class AddPost extends Component {
     this.state = {
       content: '',
       maxLength: 200,
-      location: '所在位置'
+      location: '所在位置',
+      tagSelected: {
+        cat: false,
+        dog: false
+      },
+      tag: []
     }
   }
 
@@ -56,7 +61,11 @@ export default class AddPost extends Component {
       commReq({
         url: PostController.COMMUNITY_API_POST_PUT_NEW_POST,
         method: 'PUT',
-        data: {content: this.state.content, location: this.state.location === '所在位置' ? '' : this.state.location}
+        data: {
+          content: this.state.content,
+          location: this.state.location === '所在位置' ? '' : this.state.location,
+          tags: this.state.tag
+        }
       }).then((res) => {
         if (res.data.data.success === true) {
           this.backUpperPage()
@@ -65,6 +74,41 @@ export default class AddPost extends Component {
         }
       })
     }
+  };
+
+  catTag = () => {
+    let catTagStatus = !this.state.tagSelected.cat;
+    let tag = this.state.tag;
+    if (catTagStatus && this.state.tag.indexOf('cat') < 0) {
+      tag.push('cat')
+    } else if(!catTagStatus  && this.state.tag.indexOf('cat') >= 0) {
+      let index = tag.indexOf('cat');
+      tag.splice(index, 1);
+    }
+    this.setState({
+      tagSelected: {
+        ...this.state.tagSelected,
+        cat: catTagStatus
+      },
+      tag: tag
+    });
+  };
+
+  dogTag = () =>{
+    let dogTagStatus = !this.state.tagSelected.dog;
+    let tag = this.state.tag;
+    if (dogTagStatus && this.state.tag.indexOf('dog') < 0) {
+      tag.push('dog')
+    } else if (!dogTagStatus  && this.state.tag.indexOf('dog') >= 0) {
+      let index = tag.indexOf('dog');
+      tag.splice(index, 1);
+    }
+    this.setState({
+      tagSelected: {
+        ...this.state.tagSelected,
+        dog: dogTagStatus
+      },
+    });
   };
 
   render() {
@@ -98,6 +142,11 @@ export default class AddPost extends Component {
               <AtListItem title='谁可以看' arrow='right' extraText='公开' iconInfo={this.iconInfoBlock} />
               <AtListItem title='提醒谁看' arrow='right' iconInfo={this.iconInfoMention} />
             </AtList>
+            <View className='at-article__p recommend'>
+              <View className='tag text'>推荐到：</View>
+              <View className='tag'><AtTag onClick={this.catTag} active={this.state.tagSelected.cat}>猫</AtTag></View>
+              <View className='tag'><AtTag onClick={this.dogTag} active={this.state.tagSelected.dog}>狗</AtTag></View>
+            </View>
           </View>
         </View>
       </View>
