@@ -37,7 +37,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem('token') == null || localStorage.getItem("username") == null) {
+    if (localStorage.getItem('token') == null || sessionStorage.getItem("username") == null) {
       Taro.redirectTo({url: router.login})
     } else {
       Taro.redirectTo({url: router.land})

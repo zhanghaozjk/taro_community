@@ -4,8 +4,8 @@ import {AtAvatar} from "taro-ui";
 
 import './mineCard.scss'
 import {commReq} from "../../config/commReq";
-import {UserController} from "../../server/controller/UserController";
 import {router} from "../../config/router";
+import {PostController} from "../../server/controller/PostController";
 
 export default class MineCard extends Component {
   config: Config = {
@@ -30,7 +30,7 @@ export default class MineCard extends Component {
     let data = {username: this.state.user};
     data = JSON.parse(JSON.stringify(data));
     commReq({
-      url: UserController.COMMUNITY_API_USER_MINE_DETAIL_GET,
+      url: PostController.COMMUNITY_API_POST_USER_INFORMATION,
       method: "POST",
       data: data,
       header: {'content-type': 'application/x-www-form-urlencoded'}
@@ -48,21 +48,6 @@ export default class MineCard extends Component {
   render() {
     return (
       <View className='mineCard'>
-        {/*<View className='topLine' onClick={this.editInfo}>*/}
-          {/*<Image*/}
-          {/*src={Head}*/}
-          {/*style='width: 80px; height: 80px; margin: -10px 10px 10px 5px; border-radius:50%;'*/}
-          {/*/>*/}
-          {/*<View className='avatar'>*/}
-            {/*<AtAvatar circle text={this.state.mineUserVO.nickname} size='large'/>*/}
-          {/*</View>*/}
-          {/*<View className='rightPart'>*/}
-            {/*<View className='name'>{this.state.mineUserVO.nickname}</View> <br/>*/}
-            {/*<View className='description'>*/}
-              {/*{this.state.mineUserVO.description}用一句话介绍自己*/}
-            {/*</View>*/}
-          {/*</View>*/}
-        {/*</View>*/}
         <View className='upperLine' onClick={this.editInfo}>
           <View className='avatar'>
               <AtAvatar circle text={this.state.mineUserVO.nickname} size='large' />
@@ -70,7 +55,6 @@ export default class MineCard extends Component {
           <View className='name'>{this.state.mineUserVO.nickname}</View>
 
         </View>
-        {/*<View className='content'>{this.props.content}content</View>*/}
         <View className='bottomLine'>
           <View className='btn1 div'>
             <View className='up'>{this.state.mineUserVO.postCount}</View>

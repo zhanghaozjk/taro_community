@@ -47,7 +47,7 @@ export default class Index extends Component {
       if (res.data.code === 200 && res.data.data.token != null) {
         localStorage.setItem("token", res.data.data.token),
         Taro.redirectTo({
-          url: router.post
+          url: router.land
         })
       } else if(res.data.code === 200 && res.data.data.status ==="0") {
         // 邮箱需要验证逻辑

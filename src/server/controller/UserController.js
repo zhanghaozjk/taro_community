@@ -6,6 +6,5 @@ export const UserController = {
   COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_SEND_CODE : "community/export/api/user/email/register/send/code",
   COMMUNITY_EXPORT_API_USER_EMAIL_REGISTER_VERIFY : "community/export/api/user/email/register/verify",
   COMMUNITY_EXPORT_API_USER_LOGOUT: "community/export/api/user/logout",
-  COMMUNITY_API_USER_MINE_DETAIL_GET: "community/api/user/mine/detail/get",
   COMMUNITY_API_USER_INFORMATION: "/community/api/user/mine/information",
 };

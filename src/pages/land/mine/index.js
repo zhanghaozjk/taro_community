@@ -28,7 +28,7 @@ export default class Post extends Component {
     commReq({
       url: PostController.COMMUNITY_API_POST_GET_POST_ALL,
       method: "POST",
-      data: {username: localStorage.getItem("username")},
+      data: {username: sessionStorage.getItem("username")},
       header: {'content-type': 'application/x-www-form-urlencoded'}
     }).then(ret => {
       let count = ret.data.data.count;
